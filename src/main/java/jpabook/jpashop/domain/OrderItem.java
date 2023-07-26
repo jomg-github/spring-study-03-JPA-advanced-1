@@ -27,4 +27,32 @@ public class OrderItem {
 
     @Column(name = "COUNT")
     private Integer count;
+
+    /**
+     * 주문 상품 엔티티 생성 메소드
+     */
+    public static OrderItem createOrderItem(Item item, Integer orderPrice, Integer count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.decreaseStockQuantity(count);
+
+        return orderItem;
+    }
+
+    /**
+     * 주문 취소 후, 재고 원복
+     */
+    public void cancel() {
+        getItem().increaseStockQuantity(count);
+    }
+
+    /**
+     * 주문 상품 가격 * 주문 상품 개수
+     */
+    public Integer getTotalPrice() {
+        return orderPrice * count;
+    }
 }
