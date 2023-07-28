@@ -3,6 +3,7 @@ package jpabook.jpashop.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,4 +26,11 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

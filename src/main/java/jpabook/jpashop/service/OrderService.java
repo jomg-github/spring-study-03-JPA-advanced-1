@@ -10,6 +10,8 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -53,5 +55,14 @@ public class OrderService {
     public void cancel(Long orderId) {
         Order order = orderRepository.findById(orderId);
         order.cancel();
+    }
+
+    /**
+     * 주문 검색
+     */
+    public List<Order> search(OrderSearch orderSearch) {
+        List<Order> result = orderRepository.findAllByCriteria(orderSearch);
+        System.out.println("result = " + result);
+        return result;
     }
 }
